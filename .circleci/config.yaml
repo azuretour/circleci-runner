@@ -1,0 +1,20 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: quay.io/buildah/stable
+    resource_class: azuretour/aksrunner
+    steps:
+      - checkout
+      - run:
+          name: sanity-test
+          command: |
+            buildah version
+      - run:
+          name: Building-a-container
+          command: |
+            buildah bud -f ./Dockerfile -t circleci-runner-test:0.1
+workflows:
+  build-workflow:
+    jobs:
+      - build
