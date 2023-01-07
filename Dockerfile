@@ -1,3 +1,3 @@
-FROM nginx:stable-alpine
+FROM quay.io/nginx:stable-alpine
 
 CMD [ "echo", "CircleCI Runner!!!" ]
