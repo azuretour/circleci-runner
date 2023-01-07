@@ -13,7 +13,7 @@ jobs:
       - run:
           name: Building-a-container
           command: |
-            buildah bud -f ./Dockerfile -t circleci-runner-test:v1.0.0
+            buildah bud --privileged -f ./Dockerfile -t circleci-runner-test:v1.0.0
 workflows:
   build-workflow:
     jobs:
