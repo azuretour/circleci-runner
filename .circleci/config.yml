@@ -1,20 +1,20 @@
 version: 2.1
+
 jobs:
-  build:
+  build-push:
     docker:
-      - image: quay.io/buildah/stable
+      - image: quay.io/buildah/stable:v1.28.0
     resource_class: azuretour/aksrunner
     steps:
       - checkout
       - run:
-          name: sanity-test
+          name: Build and Push
           command: |
-            buildah version
-      - run:
-          name: Building-a-container
-          command: |
-            buildah bud --isolation chroot -f ./Dockerfile -t circleci-runner-test:v1.0.0
+            ACRUSER=$(cat /mnt/secrets-store/ACRUSER)
+            ACRPASSWORD=$(cat /mnt/secrets-store/ACRPASSWORD)
+            buildah bud --format docker --layers -f ./Dockerfile -t circleciacr.azurecr.io/demo-image:v1.0.0 .
+            buildah push --creds=${ACRUSER}:${ACRPASSWORD} circleciacr.azurecr.io/demo-image:v1.0.0
 workflows:
-  build-workflow:
+  build-push-workflow:
     jobs:
-      - build
+      - build-push
