@@ -12,8 +12,8 @@ jobs:
           command: |
             ACRUSER=$(cat /mnt/secrets-store/ACRUSER)
             ACRPASSWORD=$(cat /mnt/secrets-store/ACRPASSWORD)
-            buildah bud --format docker --layers -f ./Dockerfile -t circleciacr.azurecr.io/demo-image:v1.0.0 .
-            buildah push --creds=${ACRUSER}:${ACRPASSWORD} circleciacr.azurecr.io/demo-image:v1.0.0
+            buildah bud --format docker --layers -f ./Dockerfile -t circleciacr4731.azurecr.io/demo-image:v1.0.0 .
+            buildah push --creds=${ACRUSER}:${ACRPASSWORD} circleciacr4731.azurecr.io/demo-image:v1.0.0
 workflows:
   build-push-workflow:
     jobs:
